@@ -1,0 +1,16 @@
+div#paddle {
+    background-color: silver;
+    width: 14vw;
+    height: 2vh;
+    top: 90vh;
+    left: 56vw;
+    position: absolute;
+}
+div#ball {
+    background-color: black;
+    width: 20px;
+    height: 20px;
+    top: 21vw;
+    left: 90vh;
+    position: absolute;
+}
