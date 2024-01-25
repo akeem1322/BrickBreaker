@@ -65,7 +65,6 @@ var animationLoop = () => {
 		angle = 225
 	}
 	if (areColliding(ballRect, paddleRect)) {
-			console.log('hello world')
 		if (angle === 315) {
 			angle = 45
 		}
@@ -83,9 +82,9 @@ var animationLoop = () => {
 
 //collision dectection 
 const areColliding = (r1, r2) => {
-	if (r1.top < r2.top + r2.height ||
-		r1.left < r2.left + r2.width ||
-		r1.top + r1.height > r2.top ||
+	if (r1.top < r2.top + r2.height &&
+		r1.left < r2.left + r2.width &&
+		r1.top + r1.height > r2.top &&
 		r1.left + r1.width > r2.left) {
 		return true
 	} else {
