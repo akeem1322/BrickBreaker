@@ -4,6 +4,33 @@ var angle = 45
 const speed = 6
 const paddleSpeed = 10
 
+var drawBrick = (left, width, top, height) => {
+	const brick = document.createElement('div')
+	brick.classList.add('brick')
+	brick.style.left = left + 'px'
+	brick.style.top = top + 'px'
+	brick.style.width = width + 'px'
+	brick.style.height = height + 'px'
+	var brickContainer = document.querySelector('#bricks-container')
+	brickContainer.appendChild(brick)
+}
+
+var drawBricks = () => {
+	const bricksWide = 24
+	const bricksHigh = 4
+	var brickContainerDiv = document.querySelector('#bricks-container')
+	var brickContainerRect = brickContainerDiv.getBoundingClientRect()
+	for (var i = 0; i < bricksWide; i++){
+		for (j = 0; j < bricksHigh; j++){
+			var left = i * brickContainerRect.width / bricksWide
+			var width = brickContainerRect.width / bricksWide
+			var top = j * brickContainerRect.height / bricksHigh
+			var height = brickContainerRect.height / bricksHigh
+			drawBrick(left, width, top, height)
+		}
+	}
+}
+
 var animationLoop = () => {
 	//if (paddleDirection)
 	var paddleDiv = document.querySelector('#paddle')
@@ -91,7 +118,10 @@ const areColliding = (r1, r2) => {
 		return false
 	}
 }
-window.addEventListener('load', animationLoop)
+window.addEventListener('load', () => {
+	drawBricks()
+	animationLoop()
+}) 
 document.addEventListener('keydown', e => {
 	if (e.key === 'ArrowLeft') {
 		paddleDirection = 'left'

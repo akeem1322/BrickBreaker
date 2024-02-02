@@ -10,7 +10,20 @@ div#ball {
     background-color: black;
     width: 20px;
     height: 20px;
-    top: 21vw;
-    left: 90vh;
+    top: 21vh;
+    left: 90vw;
+    position: absolute;
+}
+div#bricks-container {
+    background-color: red;
+    width: 60vw;
+    height: 35vh;
+    top: 15vh;
+    left: 20vw;
+    position: absolute;
+}
+div.brick {
+    background-color: black;
+    border: 1px solid white;
     position: absolute;
 }
