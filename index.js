@@ -3,6 +3,9 @@ var paddleDirection = 'none'
 var angle = 45
 const speed = 6
 const paddleSpeed = 10
+const bricksWide = 24
+const bricksHigh = 4
+var bricks = []
 
 var drawBrick = (left, width, top, height) => {
 	const brick = document.createElement('div')
@@ -13,23 +16,41 @@ var drawBrick = (left, width, top, height) => {
 	brick.style.height = height + 'px'
 	var brickContainer = document.querySelector('#bricks-container')
 	brickContainer.appendChild(brick)
+	return brick
 }
 
 var drawBricks = () => {
-	const bricksWide = 24
-	const bricksHigh = 4
 	var brickContainerDiv = document.querySelector('#bricks-container')
 	var brickContainerRect = brickContainerDiv.getBoundingClientRect()
-	for (var i = 0; i < bricksWide; i++){
-		for (j = 0; j < bricksHigh; j++){
-			var left = i * brickContainerRect.width / bricksWide
+	for (var i = 0; i < bricksHigh; i++){
+		var rowArray = []
+		for (j = 0; j < bricksWide; j++){
+			var left = j * brickContainerRect.width / bricksWide
 			var width = brickContainerRect.width / bricksWide
-			var top = j * brickContainerRect.height / bricksHigh
+			var top = i * brickContainerRect.height / bricksHigh
 			var height = brickContainerRect.height / bricksHigh
-			drawBrick(left, width, top, height)
+			var brick = drawBrick(left, width, top, height)
+			var brickObject = {
+				visible: true,
+				div: brick 
+			}
+			rowArray.push(brickObject)
+		}
+		bricks.push(rowArray)
+	}
+	console.log(bricks)
+}
+
+var detectBallCollision = (ballRect) => {
+	for (var i = 0; i < bricksHigh; i++){
+		for (j = 0; j < bricksWide; j++){
+			var brick = bricks[i][j].div
+			var brickRect = brick.getBoundingClientRect()
+			var didCollide = areColliding(brickRect, ballRect)
+			console.log(didCollide)
+			}
 		}
 	}
-}
 
 var animationLoop = () => {
 	//if (paddleDirection)
@@ -61,6 +82,7 @@ var animationLoop = () => {
 		ballDiv.style.left = ballRect.left + speed + 'px'
 		ballDiv.style.top = ballRect.top + speed + 'px'
 	}
+	detectBallCollision(ballRect)
 
 	//Bouncing off the walls 
 	//hits the top going upleft
