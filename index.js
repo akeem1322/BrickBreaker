@@ -47,7 +47,9 @@ var detectBallCollision = (ballRect) => {
 			var brick = bricks[i][j].div
 			var brickRect = brick.getBoundingClientRect()
 			var didCollide = areColliding(brickRect, ballRect)
-			console.log(didCollide)
+			if (didCollide.style.display === 'none')[
+				didCollide.style.display === 
+			]
 			}
 		}
 	}
