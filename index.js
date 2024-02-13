@@ -7,13 +7,14 @@ const bricksWide = 24
 const bricksHigh = 4
 var bricks = []
 
-var drawBrick = (left, width, top, height) => {
+var drawBrick = (left, width, top, height, backgroundColor) => {
 	const brick = document.createElement('div')
 	brick.classList.add('brick')
 	brick.style.left = left + 'px'
 	brick.style.top = top + 'px'
 	brick.style.width = width + 'px'
 	brick.style.height = height + 'px'
+	brick.style.backgroundColor = backgroundColor
 	var brickContainer = document.querySelector('#bricks-container')
 	brickContainer.appendChild(brick)
 	return brick
@@ -23,13 +24,26 @@ var drawBricks = () => {
 	var brickContainerDiv = document.querySelector('#bricks-container')
 	var brickContainerRect = brickContainerDiv.getBoundingClientRect()
 	for (var i = 0; i < bricksHigh; i++){
+		var backgroundColor
+		if (i === 0){
+			backgroundColor = 'blue'
+		}
+		if (i === 1){
+			backgroundColor = 'green'
+		}
+		if (i === 2){
+			backgroundColor = 'red'
+		}
+		if (i === 3){
+			backgroundColor = 'purple'
+		}
 		var rowArray = []
 		for (j = 0; j < bricksWide; j++){
 			var left = j * brickContainerRect.width / bricksWide
 			var width = brickContainerRect.width / bricksWide
 			var top = i * brickContainerRect.height / bricksHigh
 			var height = brickContainerRect.height / bricksHigh
-			var brick = drawBrick(left, width, top, height)
+			var brick = drawBrick(left, width, top, height, backgroundColor)
 			var brickObject = {
 				visible: true,
 				div: brick 
@@ -47,12 +61,45 @@ var detectBallCollision = (ballRect) => {
 			var brick = bricks[i][j].div
 			var brickRect = brick.getBoundingClientRect()
 			var didCollide = areColliding(brickRect, ballRect)
-			if (didCollide.style.display === 'none')[
-				didCollide.style.display === 
-			]
+			if (didCollide){ 
+				brick.style.display = 'none'
+				if (angle === 225){
+					var xoverlap = brickRect.left + brickRect.width - ballRect.left
+					var yoverlap = ballRect.top + ballRect.height - brickRect.top
+					if (xoverlap < yoverlap){
+						angle = 315
+					} else{
+						angle = 135
+					}
+				} else if (angle === 315){
+					var yoverlap = ballRect.top + ballRect.height - brickRect.top
+					var xoverlap = brickRect.left + brickRect.width - ballRect.left
+					if (yoverlap < xoverlap){
+						angle = 45
+					} else{
+						angle = 225
+					}
+				} else if (angle === 45){
+					var yoverlap = brickRect.top + brickRect.height - ballRect.top
+					var xoverlap = ballRect.left + ballRect.width - brickRect.left
+					if (yoverlap < xoverlap){
+						angle = 315
+					} else{
+						angle = 135
+					}
+				} else if (angle === 135){
+					var yoverlap = brickRect.top + brickRect.height - ballRect.top
+					var xoverlap = brickRect.left + brickRect.width - ballRect.left
+					if (yoverlap < xoverlap){
+						angle = 225
+					} else{
+						angle = 45
+					}
+				} 
 			}
 		}
 	}
+}
 
 var animationLoop = () => {
 	//if (paddleDirection)

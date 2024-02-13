@@ -23,7 +23,6 @@ div#bricks-container {
     position: absolute;
 }
 div.brick {
-    background-color: black;
     border: 1px solid white;
     position: absolute;
 }
