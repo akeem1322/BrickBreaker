@@ -1,7 +1,8 @@
 var paddleDirection = 'none'
 
 var angle = 45
-const speed = 6
+const defultSpeed = 6
+var speed = defultSpeed
 const paddleSpeed = 10
 const bricksWide = 24
 const bricksHigh = 4
@@ -205,6 +206,12 @@ document.addEventListener('keydown', e => {
 
 	if (e.key === 'ArrowRight') {
 		paddleDirection = 'right'
+	}
+	if (e.key === 'p'){
+		speed = 0
+	}
+	if (e.key === ' '){
+		speed = defultSpeed
 	}
 });
 
