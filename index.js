@@ -100,6 +100,12 @@ var detectBallCollision = (ballRect) => {
 		}
 	}
 }
+var startGame = () => {
+	var button = document.querySelector('div#button-container button')
+	button.style.display = 'none'
+	animationLoop()
+}
+
 
 var animationLoop = () => {
 	//if (paddleDirection)
@@ -191,7 +197,6 @@ const areColliding = (r1, r2) => {
 }
 window.addEventListener('load', () => {
 	drawBricks()
-	animationLoop()
 }) 
 document.addEventListener('keydown', e => {
 	if (e.key === 'ArrowLeft') {

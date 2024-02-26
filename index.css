@@ -15,7 +15,6 @@ div#ball {
     position: absolute;
 }
 div#bricks-container {
-    background-color: clear;
     width: 60vw;
     height: 35vh;
     top: 15vh;
@@ -25,4 +24,17 @@ div#bricks-container {
 div.brick {
     border: 1px solid white;
     position: absolute;
+}
+div#button-container{
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+div#button-container button{
+    font-size: 50px;
 }
