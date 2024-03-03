@@ -10,8 +10,6 @@ div#ball {
     background-color: black;
     width: 20px;
     height: 20px;
-    top: 21vh;
-    left: 90vw;
     position: absolute;
 }
 div#bricks-container {
@@ -25,16 +23,27 @@ div.brick {
     border: 1px solid white;
     position: absolute;
 }
-div#button-container{
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
+div#button-container {
+    background-color: beige;
+    width: 40vw;
+    height: 30vh;
+    top: 35vh;
+    left: 30vw;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
+    flex-direction: column;
+    border: 10px blue solid;
+    border-radius: 20px;
 }
-div#button-container button{
+div#button-container button {
     font-size: 50px;
+    margin-top: 20px;
+}
+p.instructions {
+    color: black;
+    font-size: x-large;
+    margin: 12;
+    font-weight: 700;
 }

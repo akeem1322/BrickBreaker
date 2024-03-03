@@ -7,6 +7,24 @@ const paddleSpeed = 10
 const bricksWide = 24
 const bricksHigh = 4
 var bricks = []
+var gameLives = 3
+
+var startGame = () => {
+	var button = document.querySelector('div#button-container')
+	button.style.display = 'none'
+	animationLoop()
+}
+
+var updateLives = () => {
+	var gameLivesDiv = document.querySelector('div#lives')
+	gameLivesDiv.innerHTML = gameLives
+}
+
+var resetBall = () => {
+	var ballDiv = document.querySelector('div#ball')
+	ballDiv.style.top = '21vh'
+    ballDiv.style.left = '90vw'
+}
 
 var drawBrick = (left, width, top, height, backgroundColor) => {
 	const brick = document.createElement('div')
@@ -101,12 +119,6 @@ var detectBallCollision = (ballRect) => {
 		}
 	}
 }
-var startGame = () => {
-	var button = document.querySelector('div#button-container button')
-	button.style.display = 'none'
-	animationLoop()
-}
-
 
 var animationLoop = () => {
 	//if (paddleDirection)
@@ -169,6 +181,12 @@ var animationLoop = () => {
 	if (ballRect.left + ballRect.width > document.documentElement.clientWidth && angle === 315) {
 		angle = 225
 	}
+	if (ballRect.top + ballRect.height > document.documentElement.clientHeight){
+		speed = 0
+		resetBall()
+		gameLives = gameLives - 1
+		updateLives()
+	}
 	if (areColliding(ballRect, paddleRect)) {
 		if (angle === 315) {
 			angle = 45
@@ -198,6 +216,8 @@ const areColliding = (r1, r2) => {
 }
 window.addEventListener('load', () => {
 	drawBricks()
+	resetBall()
+	updateLives()
 }) 
 document.addEventListener('keydown', e => {
 	if (e.key === 'ArrowLeft') {
