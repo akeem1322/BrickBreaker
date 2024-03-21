@@ -16,12 +16,12 @@ var startGame = () => {
 }
 
 var updateLives = () => {
-	var gameLivesDiv = document.querySelector('div#lives')
-	gameLivesDiv.innerHTML = gameLives
+	var gameLivesDiv = document.querySelector('#lives')
+	gameLivesDiv.innerHTML = 'Game Lives: ' + gameLives
 }
 
 var resetBall = () => {
-	var ballDiv = document.querySelector('div#ball')
+	var ballDiv = document.querySelector('#ball')
 	ballDiv.style.top = '21vh'
     ballDiv.style.left = '90vw'
 }
