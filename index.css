@@ -66,3 +66,19 @@ div#lives-container {
     border: 10px black solid;
     border-radius: 20px;
 }
+div#endgame-container {
+    background-color: beige;
+    width: 40vw;
+    height: 30vh;
+    min-height: 220px;
+    top: 35vh;
+    left: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    flex-direction: column;
+    border: 10px blue solid;
+    border-radius: 20px;
+    display: none;
+}

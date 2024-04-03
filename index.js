@@ -10,8 +10,8 @@ var bricks = []
 var gameLives = 3
 
 var startGame = () => {
-	var button = document.querySelector('div#button-container')
-	button.style.display = 'none'
+	var buttonContainer = document.querySelector('div#button-container')
+	buttonContainer.style.display = 'none'
 	animationLoop()
 }
 
@@ -183,9 +183,15 @@ var animationLoop = () => {
 	}
 	if (ballRect.top + ballRect.height > document.documentElement.clientHeight){
 		speed = 0
-		resetBall()
 		gameLives = gameLives - 1
 		updateLives()
+		if (gameLives === 0){
+			var gameoverContainer = document.querySelector('div#endgame-container')
+			gameoverContainer.style.display = 'flex'
+
+		}else {
+			resetBall()
+		}
 	}
 	if (areColliding(ballRect, paddleRect)) {
 		if (angle === 315) {
