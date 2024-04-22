@@ -188,9 +188,12 @@ var animationLoop = () => {
 		if (gameLives === 0){
 			var gameoverContainer = document.querySelector('div#endgame-container')
 			gameoverContainer.style.display = 'flex'
+			resetgameLives()
+			
 
 		}else {
 			resetBall()
+
 		}
 	}
 	if (areColliding(ballRect, paddleRect)) {
