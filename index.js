@@ -1,13 +1,14 @@
 var paddleDirection = 'none'
 
 var angle = 45
-const defultSpeed = 6
-var speed = defultSpeed
+const defaultSpeed = 6
+var speed = defaultSpeed
 const paddleSpeed = 10
 const bricksWide = 24
 const bricksHigh = 4
 var bricks = []
-var gameLives = 3
+const defaultGameLives = 3
+var gameLives = defaultGameLives
 
 var startGame = () => {
 	var buttonContainer = document.querySelector('div#button-container')
@@ -23,7 +24,7 @@ var updateLives = () => {
 var resetBall = () => {
 	var ballDiv = document.querySelector('#ball')
 	ballDiv.style.top = '21vh'
-    ballDiv.style.left = '90vw'
+	ballDiv.style.left = '90vw'
 }
 
 var drawBrick = (left, width, top, height, backgroundColor) => {
@@ -42,22 +43,22 @@ var drawBrick = (left, width, top, height, backgroundColor) => {
 var drawBricks = () => {
 	var brickContainerDiv = document.querySelector('#bricks-container')
 	var brickContainerRect = brickContainerDiv.getBoundingClientRect()
-	for (var i = 0; i < bricksHigh; i++){
+	for (var i = 0; i < bricksHigh; i++) {
 		var backgroundColor
-		if (i === 0){
+		if (i === 0) {
 			backgroundColor = 'blue'
 		}
-		if (i === 1){
+		if (i === 1) {
 			backgroundColor = 'green'
 		}
-		if (i === 2){
+		if (i === 2) {
 			backgroundColor = 'red'
 		}
-		if (i === 3){
+		if (i === 3) {
 			backgroundColor = 'purple'
 		}
 		var rowArray = []
-		for (j = 0; j < bricksWide; j++){
+		for (j = 0; j < bricksWide; j++) {
 			var left = j * brickContainerRect.width / bricksWide
 			var width = brickContainerRect.width / bricksWide
 			var top = i * brickContainerRect.height / bricksHigh
@@ -65,56 +66,55 @@ var drawBricks = () => {
 			var brick = drawBrick(left, width, top, height, backgroundColor)
 			var brickObject = {
 				visible: true,
-				div: brick 
+				div: brick
 			}
 			rowArray.push(brickObject)
 		}
 		bricks.push(rowArray)
 	}
-	console.log(bricks)
 }
 
 var detectBallCollision = (ballRect) => {
-	for (var i = 0; i < bricksHigh; i++){
-		for (j = 0; j < bricksWide; j++){
+	for (var i = 0; i < bricksHigh; i++) {
+		for (j = 0; j < bricksWide; j++) {
 			var brick = bricks[i][j].div
 			var brickRect = brick.getBoundingClientRect()
 			var didCollide = areColliding(brickRect, ballRect)
-			if (didCollide){ 
+			if (didCollide) {
 				brick.style.display = 'none'
-				if (angle === 225){
+				if (angle === 225) {
 					var xoverlap = brickRect.left + brickRect.width - ballRect.left
 					var yoverlap = ballRect.top + ballRect.height - brickRect.top
-					if (xoverlap < yoverlap){
+					if (xoverlap < yoverlap) {
 						angle = 315
-					} else{
+					} else {
 						angle = 135
 					}
-				} else if (angle === 315){
+				} else if (angle === 315) {
 					var yoverlap = ballRect.top + ballRect.height - brickRect.top
 					var xoverlap = brickRect.left + brickRect.width - ballRect.left
-					if (yoverlap < xoverlap){
+					if (yoverlap < xoverlap) {
 						angle = 45
-					} else{
+					} else {
 						angle = 225
 					}
-				} else if (angle === 45){
+				} else if (angle === 45) {
 					var yoverlap = brickRect.top + brickRect.height - ballRect.top
 					var xoverlap = ballRect.left + ballRect.width - brickRect.left
-					if (yoverlap < xoverlap){
+					if (yoverlap < xoverlap) {
 						angle = 315
-					} else{
+					} else {
 						angle = 135
 					}
-				} else if (angle === 135){
+				} else if (angle === 135) {
 					var yoverlap = brickRect.top + brickRect.height - ballRect.top
 					var xoverlap = brickRect.left + brickRect.width - ballRect.left
-					if (yoverlap < xoverlap){
+					if (yoverlap < xoverlap) {
 						angle = 225
-					} else{
+					} else {
 						angle = 45
 					}
-				} 
+				}
 			}
 		}
 	}
@@ -181,19 +181,15 @@ var animationLoop = () => {
 	if (ballRect.left + ballRect.width > document.documentElement.clientWidth && angle === 315) {
 		angle = 225
 	}
-	if (ballRect.top + ballRect.height > document.documentElement.clientHeight){
+	if (ballRect.top + ballRect.height > document.documentElement.clientHeight) {
 		speed = 0
-		gameLives = gameLives - 1
+		gameLives = Math.max(gameLives - 1, 0);
 		updateLives()
-		if (gameLives === 0){
+		if (gameLives === 0) {
 			var gameoverContainer = document.querySelector('div#endgame-container')
 			gameoverContainer.style.display = 'flex'
-			resetgameLives()
-			
-
-		}else {
+		} else {
 			resetBall()
-
 		}
 	}
 	if (areColliding(ballRect, paddleRect)) {
@@ -227,7 +223,7 @@ window.addEventListener('load', () => {
 	drawBricks()
 	resetBall()
 	updateLives()
-}) 
+})
 document.addEventListener('keydown', e => {
 	if (e.key === 'ArrowLeft') {
 		paddleDirection = 'left'
@@ -236,11 +232,23 @@ document.addEventListener('keydown', e => {
 	if (e.key === 'ArrowRight') {
 		paddleDirection = 'right'
 	}
-	if (e.key === 'p'){
+	if (e.key === 'p') {
 		speed = 0
 	}
-	if (e.key === ' '){
-		speed = defultSpeed
+	if (e.key === ' ') {
+		speed = defaultSpeed
+	}
+	if (e.key === 'r') {
+		if (gameLives === 0) {
+			gameLives = defaultGameLives
+			resetBall()
+			updateLives()
+			var gameoverContainer = document.querySelector('div#endgame-container')
+			gameoverContainer.style.display = 'none'
+			var brickContainerDiv = document.querySelector('#bricks-container')
+			brickContainerDiv.innerHTML = ''
+			drawBricks()
+		}
 	}
 });
 
