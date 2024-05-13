@@ -6,7 +6,7 @@ var speed = defaultSpeed
 const paddleSpeed = 10
 const bricksWide = 24
 const bricksHigh = 4
-var bricks = []
+var bricks 
 const defaultGameLives = 3
 var gameLives = defaultGameLives
 
@@ -41,6 +41,7 @@ var drawBrick = (left, width, top, height, backgroundColor) => {
 }
 
 var drawBricks = () => {
+	bricks = []
 	var brickContainerDiv = document.querySelector('#bricks-container')
 	var brickContainerRect = brickContainerDiv.getBoundingClientRect()
 	for (var i = 0; i < bricksHigh; i++) {
